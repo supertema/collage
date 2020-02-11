@@ -1,24 +1,49 @@
 import os
 import math
-
+import shutil
+import threading
 
 import cv2
 import numpy as np
 
-s = int(input('Задайте размер стороны ячейки:'))
-h_collage = int(input('Задайте количество ячеек коллажа по вертикали:'))
-w_collage = int(input('Задайте количество ячеек коллажа по диагонали:'))
+import vk_pars
 
+# s = int(input('Задайте размер стороны ячейки:'))
+# h_collage = int(input('Задайте количество ячеек коллажа по вертикали:'))
+# w_collage = int(input('Задайте количество ячеек коллажа по диагонали:'))
+# id = int(input('Введите ID пользователя Вконтакте в числовом формате:'))
+# n = int(input('Задайте общее количество картинок для коллажа:'))
+
+
+
+s = 150
+h_collage = 5
+w_collage = 6
+id = 35142016
+n = 25
+
+vk_pars.main(id, n)
+
+# проверяем, есть ли папка, если нет - создаем
+def create_path(image_dir):
+    path = image_dir + '/resize_pic'
+    if os.path.isdir(path):
+        pass
+    else:
+        try:
+            os.mkdir(path)
+        except FileExistsError:
+            print('Директория уже существует')
+        pass
+
+create_path(os.getcwd() + '/pic')
+
+# делаем картинки квадратными
 def get_square(image_dir, size):
     path = image_dir + '/resize_pic'
-    try:
-        os.mkdir(path)
-    except FileExistsError:
-        print('Директория уже существует')
     image_paths = os.listdir(image_dir)
-
     for pic in image_paths:
-        image = cv2.imread('/home/supertema/python_project/gallery/pic/' + pic)
+        image = cv2.imread(os.getcwd() + '/pic/' + pic)
         if image is None:
             print('В папке нет картинок')
         else:
@@ -28,8 +53,6 @@ def get_square(image_dir, size):
                 c = None
             else:
                 c = image.shape[2]
-            if h == w:
-                return cv2.resize(image, (size, size), cv2.INTER_AREA)
             if h > w:
                 dif = h
             else:
@@ -44,12 +67,8 @@ def get_square(image_dir, size):
                 mask[y_pos:y_pos+h, x_pos:x_pos+w, :] = image[:h, :w, :]
                 p = cv2.resize(mask, (size, size), cv2.INTER_AREA)
                 cv2.imwrite(os.path.join(path , 'resize_' + pic), p)
-                cv2.waitKey(0)
 
-
-get_square('/home/supertema/python_project/gallery/pic/', s)
-
-
+get_square(os.getcwd() + '/pic', s)
 
 
 
@@ -62,7 +81,6 @@ def mock_resize(size):
     image = cv2.resize(mock, dim)
     cv2.imwrite('/home/supertema/python_project/gallery/m.jpg', image)
     return image
-
 
 
 
@@ -98,3 +116,9 @@ def create_collages(image_dir, w, h, size_m=s):
     return collage
 
 create_collages('/home/supertema/python_project/gallery/pic/resize_pic', w_collage, h_collage)
+
+# чистим директории после показа картинки
+def delete_dir(dir):
+    shutil.rmtree(dir)
+
+delete_dir(os.getcwd() + '/pic')
