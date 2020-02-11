@@ -2,9 +2,11 @@ import requests
 import json
 import os
 
+
 # на место client_id вставляем ID созданного приложения, вставляем в строку браузера и даем разрешение
 # получаем токен который живет 24 часа!
 'https://oauth.vk.com/authorize?client_id=7316510&display=page&redirect_uri=https://oauth.vk.com/blank.html&scope=photos&response_type=token&v=5.74'
+
 
 # полученный токен вставляем сюда
 token = '5bdba3c73d66bfb2329e0f584e985087f4f727353485c71a5fcc52c018e87d4ef4b848fa68c2f915926e7'
@@ -20,6 +22,7 @@ def get_largetst(size_dict):
         return size_dict['width']
     else:
         return size_dict['height']
+
 
 def download_photo(url):
     path = os.getcwd() + '/pic'
@@ -46,9 +49,7 @@ def main(id, n_img):
                                   'photo_sizes': 1,
                                   'count': n_img,
                                 })
-
     write_json(r.json())
-
 
     photos = json.load(open('response.json'))['response']['items']
     for photo in photos:

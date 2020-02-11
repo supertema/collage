@@ -133,3 +133,5 @@ dmypy.json
 *.png
 *.jpeg
 *.json
+
+!mock.jpg
