@@ -5,48 +5,70 @@ import math
 import cv2
 import numpy as np
 
+s = int(input('Задайте размер стороны ячейки:'))
+h_collage = int(input('Задайте количество ячеек коллажа по вертикали:'))
+w_collage = int(input('Задайте количество ячеек коллажа по диагонали:'))
 
-
-
-
-# просто ресайзим все картинки по заданным размерам и отправляем в новую директорию
-def resizes_pic(image_dir, width, height):
+def get_square(image_dir, size):
     path = image_dir + '/resize_pic'
     try:
-        os.mkdir(path, mode=0o777, dir_fd=None)
+        os.mkdir(path)
     except FileExistsError:
         print('Директория уже существует')
     image_paths = os.listdir(image_dir)
+
+    for pic in image_paths:
+        image = cv2.imread('/home/supertema/python_project/gallery/pic/' + pic)
+        if image is None:
+            print('В папке нет картинок')
+        else:
+            h = image.shape[0]
+            w = image.shape[1]
+            if len(image.shape) < 3:
+                c = None
+            else:
+                c = image.shape[2]
+            if h == w:
+                return cv2.resize(image, (size, size), cv2.INTER_AREA)
+            if h > w:
+                dif = h
+            else:
+                dif = w
+            x_pos = int((dif - w)/2.)
+            y_pos = int((dif - h)/2.)
+            if c is None:
+                mask = np.zeros((dif, dif), dtype=image.dtype)
+                mask[y_pos:y_pos+h, x_pos:x_pos+w] = image[:h, :w]
+            else:
+                mask = np.zeros((dif, dif, c), dtype=image.dtype)
+                mask[y_pos:y_pos+h, x_pos:x_pos+w, :] = image[:h, :w, :]
+                p = cv2.resize(mask, (size, size), cv2.INTER_AREA)
+                cv2.imwrite(os.path.join(path , 'resize_' + pic), p)
+                cv2.waitKey(0)
+
+
+get_square('/home/supertema/python_project/gallery/pic/', s)
+
+
+
+
+
+# ресайзим заглушку
+def mock_resize(size):
+    path = os.getcwd() + 'pic/resize_pic'
+    mock = cv2.imread('/home/supertema/python_project/gallery/mock.jpg')
+    width = height = size
     dim = (width, height)
-    try:
-        for pic in image_paths:
-            image1 = cv2.imread(pic)
-            image2 = cv2.resize(image1, dim)
-            cv2.imshow("Original image", image2)
-            cv2.imwrite(os.path.join(path , 'resize_' + pic), image2)
-    except:
-        print('Случилась ошибка, но это не беда - все работает)', )
+    image = cv2.resize(mock, dim)
+    cv2.imwrite('/home/supertema/python_project/gallery/m.jpg', image)
+    return image
 
 
-# resizes_pic('/home/supertema/python_project/gallery/pic', 150, 150)
 
-
-# width = 300
-# height = 300
-# dim = (width, height)
-#
-# image1 = cv2.imread("4vqqsNB7Urs.jpg")
-# image2 = cv2.imread("7fN6TmXp5jM.jpg")
-# image1 = cv2.resize(image1, dim)
-# image2 = cv2.resize(image2, dim)
-# col1 = np.vstack([image1, image2])
-#
-# cv2.imshow("Original image", col1)
-# cv2.waitKey(0)
 
 
 #создаем коллаж
-def create_collages(image_dir, w, h):
+def create_collages(image_dir, w, h, size_m=s):
     image_paths = os.listdir(image_dir)
     list_img = [] # список в котором будут списки с картинками
     k = 0 # счетчик картинок в директории
@@ -54,9 +76,12 @@ def create_collages(image_dir, w, h):
     for i in range(w): # ширина коллажа
         list_img.append([])
         for j in range(h): # высота коллажа
-            pic = cv2.imread(os.path.join(image_dir, image_paths[k]))
-            list_img[i].append(pic)
-            k += 1
+            if k >= len(image_paths):
+                list_img[i].append(mock_resize(size_m))
+            else:
+                pic = cv2.imread(os.path.join(image_dir, image_paths[k]))
+                list_img[i].append(pic)
+                k += 1
 
     row = [] # создаем список для стаконных по вертикали картикок
 
@@ -72,36 +97,4 @@ def create_collages(image_dir, w, h):
     cv2.waitKey(0)
     return collage
 
-
-
-create_collages('/home/supertema/python_project/gallery/pic/resize_pic', 4, 6)
-
-
-# def create_collages(image_dir):
-#     image_paths = os.listdir(image_dir)
-#     n = len(image_paths) # 16
-#     # find nearest square
-#     collage_size = int(math.floor(math.sqrt(len(image_paths)))) # 4
-#
-#     # horizontally stacking images to create rows
-#     rows = []
-#     k = 0 # counter for number of rows
-#     for i in range(collage_size**2): # 0,16
-#         if i % collage_size == 0: # finished with row, start new one
-#             if k > 0:
-#                 rows.append(cur_row)
-#             cur_row = cv2.imread(os.path.join(image_dir, image_paths[i]))
-#             k += 1
-#         else:             # continue stacking images to current row
-#             cur_img = cv2.imread(os.path.join(image_dir, image_paths[i]))
-#             cur_row = np.hstack([cur_row, cur_img])
-#
-#         # vertically stacking rows to create final collage.
-#         collage = rows[0]
-#
-#         for i in range(1, len(rows)):
-#             collage = np.vstack([collage, rows[i]])
-#
-#     return collage
-#
-# create_collages('/home/supertema/python_project/gallery/pic/resize_pic')
+create_collages('/home/supertema/python_project/gallery/pic/resize_pic', w_collage, h_collage)
