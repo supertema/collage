@@ -1,4 +1,4 @@
-# Коллаж
+## Задача
 
 Написать программу для составления коллажей из фотографий.
 Программа должна получать фотографии из внешнего источника
@@ -24,3 +24,46 @@
 - Рекомендуется использование библиотеки OpenCV
 - Язык реализации: C++ или Python
 - Платформа: Windows или Linux
+
+
+## Выполнение
+
+2020-02-11 20:34:05 Tuesday
+
+Из того, что хотел сделать, но не успел:
+- валидация вводимых данных (сейчас упадет если ввести, например, буквы)
+- реализация меню (бесконечный ввод, обработка ошибок и т.д.)
+- через апи ВК отдают максимум 200 картинок за раз, по этому нужен сдвиг, его тоже можно сделать
+- переработать логику заглушек, чтоб были только в последнем ряду, сейчас плавают в конце по рядам и столбцам
+- не хватило времени реализовать многопоточность, по этому работает не быстро.
+
+
+
+## Установка
+
+Т.к. картинки берем через апи вконтакте, а там токен пользователя живет 24 часа,
+соответствнно чтоб получить его:
+ - создаем Standalone-приложение https://vk.com/editapp?act=create 
+ - активируем его
+ - вставляем ID приложения в client_id:
+
+https://oauth.vk.com/authorize?client_id=XXX&display=page&redirect_uri=https://oauth.vk.com/blank.html&scope=photos&response_type=token&v=5.74
+
+- переходим по ссылке и получаем токен, с которым работаем в приложении
+- копируем токен и вставляем в код
+
+
+## Запуск
+
+- клонируем репозиторий к себе
+- устанавливаем и активируем виртуальное окружение, устанавливаем библиотеки из requirements.txt
+- запускаем файл collage_create.py , следуем инструкциям
+
+
+## Примеры работы:
+
+![](https://downloader.disk.yandex.ru/preview/4737a047878e40235aa88612c5ad649e2c7cadbfff6c9d44bb3107d6a1c7dd89/5e4c06ca/emZ0GTwLQd2Xv6yj62DGV2djFxJW1IjpPqSc-p4QPZ-695c2QCZDwHwSJmm3e1ikNoVUhT8GHR7gCRrXlfIdQw==?uid=0&filename=photo_2020-02-11_20-34-22.jpg&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&tknv=v2&owner_uid=321493929&size=1560x759)
+
+![](https://downloader.disk.yandex.ru/preview/0458b0d073dd6f239ec95f5f80a9939b38b8f0e3f9d7f745be68ba031a693a5e/5e4c0f36/Ft2aZtAlPTBT-tJ9-ML-1WdjFxJW1IjpPqSc-p4QPZ_WONa_9YTYWUCaGw0FdTBKwZDv2DaT2emga-JwZFExuw==?uid=0&filename=photo_2020-02-11_20-34-20.jpg&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&tknv=v2&owner_uid=321493929&size=1560x759)
+
+![](https://downloader.disk.yandex.ru/preview/243780ea237a67750727e00599c465b1868c1cfbcb926f244c4a2dce734427dd/5e4c0f5b/2FajSggUu45CFSvv_viNImdjFxJW1IjpPqSc-p4QPZ8XyOJbtpyex1gzMqES0X3GZ5O3uYxDl-XZ7tAv62AcRQ==?uid=0&filename=photo_2020-02-11_20-34-19.jpg&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&tknv=v2&owner_uid=321493929&size=2048x2048)
