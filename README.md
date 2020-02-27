@@ -62,8 +62,8 @@ https://oauth.vk.com/authorize?client_id=XXX&display=page&redirect_uri=https://o
 
 ## Примеры работы:
 
-![](https://downloader.disk.yandex.ru/preview/4737a047878e40235aa88612c5ad649e2c7cadbfff6c9d44bb3107d6a1c7dd89/5e4c06ca/emZ0GTwLQd2Xv6yj62DGV2djFxJW1IjpPqSc-p4QPZ-695c2QCZDwHwSJmm3e1ikNoVUhT8GHR7gCRrXlfIdQw==?uid=0&filename=photo_2020-02-11_20-34-22.jpg&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&tknv=v2&owner_uid=321493929&size=1560x759)
+![](http://supert8i.bget.ru/photo_2020-02-11_20-34-19.jpg)
 
-![](https://downloader.disk.yandex.ru/preview/0458b0d073dd6f239ec95f5f80a9939b38b8f0e3f9d7f745be68ba031a693a5e/5e4c0f36/Ft2aZtAlPTBT-tJ9-ML-1WdjFxJW1IjpPqSc-p4QPZ_WONa_9YTYWUCaGw0FdTBKwZDv2DaT2emga-JwZFExuw==?uid=0&filename=photo_2020-02-11_20-34-20.jpg&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&tknv=v2&owner_uid=321493929&size=1560x759)
+![](http://supert8i.bget.ru/photo_2020-02-11_20-34-20.jpg)
 
-![](https://downloader.disk.yandex.ru/preview/243780ea237a67750727e00599c465b1868c1cfbcb926f244c4a2dce734427dd/5e4c0f5b/2FajSggUu45CFSvv_viNImdjFxJW1IjpPqSc-p4QPZ8XyOJbtpyex1gzMqES0X3GZ5O3uYxDl-XZ7tAv62AcRQ==?uid=0&filename=photo_2020-02-11_20-34-19.jpg&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&tknv=v2&owner_uid=321493929&size=2048x2048)
+![](http://supert8i.bget.ru/photo_2020-02-11_20-34-22.jpg)
